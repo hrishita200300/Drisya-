@@ -7,176 +7,663 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-
   <style>
+    :root {
+      --bg-dark: #050509;
+      --bg-deep: #050510;
+      --gold: #f4c978;
+      --teal: #1ab0a5;
+      --accent: #ff675f;
+      --text-main: #f7f4ec;
+      --muted: #b7b1a5;
+      --border-soft: rgba(255,255,255,0.1);
+      --card-bg: rgba(10,10,20,0.9);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      margin: 0;
-      font-family: Inter, sans-serif;
-      background: #050509;
-      color: #ffffff;
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background:
+        radial-gradient(circle at 10% 0%, rgba(255, 202, 104, 0.16), transparent 55%),
+        radial-gradient(circle at 90% 10%, rgba(62, 217, 195, 0.18), transparent 60%),
+        radial-gradient(circle at 50% 100%, rgba(255, 103, 95, 0.2), transparent 55%),
+        linear-gradient(180deg, var(--bg-dark), var(--bg-deep));
+      color: var(--text-main);
+      line-height: 1.6;
+      scroll-behavior: smooth;
     }
+    img { max-width: 100%; display: block; }
+
+    /* NAV */
     header {
-      padding: 20px;
-      text-align: center;
-      font-family: "Playfair Display", serif;
-      font-size: 26px;
-      letter-spacing: 1px;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      backdrop-filter: blur(18px);
+      background: linear-gradient(to bottom, rgba(5,5,12,0.96), rgba(5,5,12,0.7), transparent);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
     }
-    section {
-      max-width: 900px;
+    .nav {
+      max-width: 1120px;
       margin: 0 auto;
-      padding: 60px 20px;
-      line-height: 1.8;
+      padding: 0.7rem 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
     }
-    h2 {
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+    .nav-logo {
+      /* upload your logo as drisya-logo.png */
+      height: 40px;
+      width: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 0 10px rgba(0,0,0,0.7));
+    }
+    .nav-title {
       font-family: "Playfair Display", serif;
-      font-size: 32px;
-      margin-bottom: 10px;
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
     }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      font-size: 0.8rem;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+      position: relative;
+      padding-bottom: 0.15rem;
+    }
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0; bottom: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold), var(--accent));
+      transition: width 0.25s ease;
+    }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-cta {
+      font-size: 0.8rem;
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: radial-gradient(circle at 0 0, rgba(250, 200, 120, 0.4), transparent 55%);
+      color: var(--text-main);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    main { padding-top: 74px; }
+    section {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 4.5rem 1.25rem;
+    }
+
+    /* HERO */
     .hero {
-      text-align: center;
-      padding: 120px 20px;
-      background: radial-gradient(circle at top, #1c1230, #050509);
+      min-height: calc(100vh - 74px);
+      display: grid;
+      grid-template-columns: minmax(0,1.1fr) minmax(0,1fr);
+      gap: 2.4rem;
+      align-items: center;
+    }
+    .eyebrow {
+      font-size: 0.78rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
     }
     .hero h1 {
-      font-size: 48px;
-      margin-bottom: 10px;
       font-family: "Playfair Display", serif;
+      font-size: clamp(2.4rem, 3.4vw, 3.4rem);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .hero h1 span {
+      background: linear-gradient(90deg, var(--gold), var(--teal));
+      -webkit-background-clip: text;
+      color: transparent;
     }
     .hero p {
-      font-size: 18px;
-      max-width: 600px;
-      margin: 0 auto;
-      color: #bfbfbf;
+      max-width: 32rem;
+      font-size: 0.98rem;
+      color: var(--muted);
+      margin-bottom: 1.6rem;
+    }
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-bottom: 1.2rem;
+    }
+    .btn-primary, .btn-ghost {
+      border-radius: 999px;
+      padding: 0.7rem 1.5rem;
+      font-size: 0.88rem;
+      border: 1px solid transparent;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: radial-gradient(circle at 0 0, var(--gold), var(--accent));
+      color: #190f05;
+      font-weight: 600;
+      box-shadow: 0 18px 45px rgba(0,0,0,0.7);
+    }
+    .btn-ghost {
+      border-color: rgba(255,255,255,0.3);
+      color: var(--text-main);
+      background: rgba(5,5,12,0.85);
+    }
+    .hero-meta {
+      font-size: 0.8rem;
+      color: var(--muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.6rem;
+      margin-top: 0.6rem;
+    }
+    .hero-meta strong {
+      color: var(--gold);
+      font-weight: 500;
+    }
+    .hero-visual {
+      position: relative;
+    }
+    .hero-poster {
+      border-radius: 26px;
+      overflow: hidden;
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 22px 65px rgba(0,0,0,0.85);
+      background: radial-gradient(circle at 0 0, rgba(240,200,140,0.2), transparent 55%);
+    }
+    /* upload your VR poster as drisya-hero-poster.jpg */
+    .hero-poster img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .hero-orb {
+      position: absolute;
+      width: 130px; height: 130px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 25% 0%, #ffe9a5, rgba(255,118,92,0.25));
+      top: -30px; right: -10px;
+      filter: blur(0.5px);
+      opacity: 0.7;
+      z-index: -1;
+    }
+    .hero-pill {
+      position: absolute;
+      bottom: -18px; left: 18px;
+      padding: 0.5rem 0.95rem;
+      border-radius: 999px;
+      background: rgba(5,5,12,0.98);
+      border: 1px solid rgba(255,255,255,0.18);
+      font-size: 0.78rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--muted);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+    }
+    .hero-pill-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--teal), var(--gold));
+    }
+
+    /* Section common */
+    .section-kicker {
+      font-size: 0.8rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+    }
+    .section-title {
+      font-family: "Playfair Display", serif;
+      font-size: 1.7rem;
+      margin-bottom: 0.7rem;
+    }
+    .section-lede {
+      color: var(--muted);
+      max-width: 40rem;
+      font-size: 0.96rem;
+      margin-bottom: 2rem;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 1.6rem;
+    }
+    .card {
+      background: var(--card-bg);
+      border-radius: 18px;
+      padding: 1.4rem 1.5rem 1.3rem;
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+    }
+    .card h3 {
+      font-size: 1rem;
+      margin-bottom: 0.4rem;
+      font-weight: 600;
+    }
+    .card p {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .origins-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px,1fr));
+      gap: 1.2rem;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      border-radius: 999px;
+      padding: 0.16rem 0.65rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      background: rgba(250,226,168,0.08);
+      border: 1px solid rgba(250,226,168,0.3);
+      color: var(--gold);
+      margin-bottom: 0.55rem;
+    }
+
+    /* Worlds */
+    .worlds {
+      display: grid;
+      gap: 1.3rem;
     }
     .world {
-      background: rgba(255,255,255,0.05);
-      padding: 20px;
-      border-radius: 14px;
-      margin-bottom: 20px;
+      display: grid;
+      grid-template-columns: minmax(0,1.1fr) minmax(0,1fr);
+      gap: 1.1rem;
+      align-items: start;
+      padding: 1.2rem 1.4rem;
+      border-radius: 20px;
+      background: radial-gradient(circle at 0 0, rgba(250,200,120,0.12), transparent 60%), var(--card-bg);
+      border: 1px solid var(--border-soft);
     }
+    .world-meta {
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      margin-bottom: 0.4rem;
+    }
+    .world h3 {
+      font-size: 1rem;
+      margin-bottom: 0.3rem;
+    }
+    .world h3 span {
+      color: var(--gold);
+      font-weight: 600;
+    }
+    .world p {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+    .world-thumb {
+      height: 140px;
+      border-radius: 14px;
+      background-size: cover;
+      background-position: center;
+      opacity: 0.96;
+      border: 1px solid rgba(255,255,255,0.16);
+    }
+
+    /* Steps */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+      gap: 1.3rem;
+    }
+    .step-number {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 0 0, var(--gold), var(--accent));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem;
+      color: #120b06;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    /* Visit */
+    .visit p {
+      max-width: 32rem;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+    .visit .btn-primary {
+      margin-top: 1.1rem;
+    }
+
+    /* Gallery strip */
+    .gallery-strip {
+      display: flex;
+      gap: 0.8rem;
+      overflow-x: auto;
+      padding-bottom: 0.4rem;
+    }
+    .gallery-strip img {
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.18);
+      width: 220px;
+      height: 130px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
     footer {
-      padding: 40px;
-      text-align: center;
-      font-size: 14px;
-      color: #bbbbbb;
-      border-top: 1px solid rgba(255,255,255,0.15);
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 1.5rem 1.25rem 2.2rem;
+      max-width: 1120px;
+      margin: 0 auto;
+      font-size: 0.78rem;
+      color: var(--muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      margin-right: 0.6rem;
+      font-size: 0.78rem;
+    }
+
+    @media (max-width: 840px) {
+      .hero {
+        grid-template-columns: minmax(0,1fr);
+      }
+      .hero-visual { order: -1; }
+      .nav-links { display: none; }
+      .world {
+        grid-template-columns: minmax(0,1fr);
+      }
     }
   </style>
 </head>
-
 <body>
+  <header>
+    <div class="nav">
+      <div class="nav-left">
+        <!-- upload: drisya-logo.png -->
+        <img src="drisya-logo.png" alt="DRISYA logo" class="nav-logo">
+        <div class="nav-title">IMMERSIVE CULTURAL WORLDS</div>
+      </div>
+      <div class="nav-links">
+        <a href="#why">Why</a>
+        <a href="#origins">Origins</a>
+        <a href="#worlds">Worlds</a>
+        <a href="#visit">Visit</a>
+      </div>
+      <a href="#visit" class="nav-cta">Get updates ▸</a>
+    </div>
+  </header>
 
-<header>
-  <img src="drisya-logo.png" alt="DRISYA Logo" style="height:80px;"><br>
-  IMMERSIVE CULTURAL WORLDS
-</header>
+  <main>
+    <!-- HERO -->
+    <section class="hero" id="top">
+      <div>
+        <div class="eyebrow">Presented by Google Arts &amp; Culture</div>
+        <h1>A NEW WAY TO <span>SEE INDIA</span></h1>
+        <p>
+          DRISYA is a VR museum where Indian paintings, textiles, architecture and folk traditions
+          become immersive rooms you can walk through at the NMACC in Mumbai.
+        </p>
+        <div class="hero-buttons">
+          <a href="#worlds" class="btn-primary">Explore the worlds ▸</a>
+          <a href="#why" class="btn-ghost">Why Drisya?</a>
+        </div>
+        <div class="hero-meta">
+          <div><strong>5</strong> immersive rooms</div>
+          <div><strong>1</strong> cultural centre – NMACC</div>
+          <div>Built with Google Arts &amp; Culture</div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-poster">
+          <!-- upload your VR poster as drisya-hero-poster.jpg -->
+          <img src="drisya-hero-poster.jpg" alt="Drisya VR poster">
+        </div>
+        <div class="hero-orb"></div>
+        <div class="hero-pill">
+          <div class="hero-pill-dot"></div>
+          Every artwork becomes a world.
+        </div>
+      </div>
+    </section>
 
-<section class="hero">
-  <h1>A NEW WAY TO SEE INDIA</h1>
-  <p>DRISYA is a VR museum where Indian paintings, textiles, architecture and folk traditions become immersive worlds you can walk through at the NMACC in Mumbai.</p>
-</section>
+    <!-- WHY -->
+    <section id="why">
+      <div class="section-kicker">Why Drisya</div>
+      <h2 class="section-title">India’s art was never meant to stay flat.</h2>
+      <p class="section-lede">
+        Miniature paintings lived in the hand. Textiles moved with the body. Temples choreographed how we walked and felt.
+        Today we mostly meet them on tiny screens and behind glass. Drisya asks: <strong>what if we could step inside again?</strong>
+      </p>
+      <div class="grid-2">
+        <div class="card">
+          <div class="tag">The Idea</div>
+          <h3>From scroll to portal.</h3>
+          <p>
+            Drisya transforms Indian visual traditions into immersive spaces using VR, projection and spatial sound—
+            keeping the craft and context, but expanding the way we experience them.
+          </p>
+        </div>
+        <div class="card">
+          <div class="tag">Who it’s for</div>
+          <h3>New eyes on old worlds.</h3>
+          <p>
+            Designed for students, travellers, designers, families and anyone curious about India beyond clichés.
+            It’s not a museum you walk past—it’s one you disappear into.
+          </p>
+        </div>
+      </div>
+    </section>
 
-<section>
-  <h2>Why We Are Creating Drisya</h2>
-  <p>
-    Indian art was never meant to stay flat. Paintings lived in the hand, textiles moved with the body, temples shaped how we walked and felt.  
-    Today we mostly see them on screens.  
-    Drisya asks:<br><br>
-    <strong>“What if you could step inside the art instead?”</strong>
-  </p>
-</section>
+    <!-- ORIGINS -->
+    <section id="origins">
+      <div class="section-kicker">Origins</div>
+      <h2 class="section-title">Where our worlds begin.</h2>
+      <p class="section-lede">
+        Every room in Drisya is anchored in a real craft, place or community. We are not inventing fantasy India—we’re amplifying what already exists.
+      </p>
+      <div class="origins-grid">
+        <div class="card">
+          <h3>Miniature Story Courts</h3>
+          <p>
+            Rajasthan and Deccan ateliers painted love, war and devotion on palm-sized pages. In Drisya those pages become moving walls you can stroll beside.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Textile Rivers</h3>
+          <p>
+            Banarasi, Kanchipuram, Ajrakh, Ikat, Bandhani, Phulkari and Patola form the color and pattern engine of our textile universes.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Folk &amp; Tribal Story Worlds</h3>
+          <p>
+            Warli, Gond, Madhubani and Pattachitra give us characters, forests and graphic languages that guide you through the experience.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Sacred Architecture</h3>
+          <p>
+            Temples, mosques, stepwells and stupas provide the geometry and rhythm for portal spaces and transitions between worlds.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Festival Color &amp; Ritual</h3>
+          <p>
+            Rangoli, Holi pigments, lamps and processions inform the light, sound and atmosphere that hold everything together.
+          </p>
+        </div>
+      </div>
 
-<section>
-  <h2>Where Indian Art Originated</h2>
+      <!-- small horizontal image strip – upload your own thumbnails -->
+      <div class="gallery-strip" style="margin-top:1.8rem;">
+        <img src="thumb-miniatures.jpg" alt="Miniature art">
+        <img src="thumb-textiles.jpg" alt="Textiles">
+        <img src="thumb-folk.jpg" alt="Folk art">
+        <img src="thumb-architecture.jpg" alt="Architecture">
+      </div>
+    </section>
 
-  <div class="world">
-    <h3>Miniature Story Courts</h3>
-    Rajasthan & Deccan ateliers painted love, war and devotion on palm-sized pages.  
-    In Drisya these become moving story walls.
-  </div>
+    <!-- WORLDS -->
+    <section id="worlds">
+      <div class="section-kicker">Inside NMACC</div>
+      <h2 class="section-title">The five immersive worlds of Drisya.</h2>
+      <p class="section-lede">
+        Spread across the Grand Theatre, the Art House, the Cube, the Lobby and the Promenade, Drisya turns India’s leading cultural centre into a cluster of portals.
+      </p>
 
-  <div class="world">
-    <h3>Textile Rivers</h3>
-    Banarasi, Ajrakh, Ikat, Phulkari, Patola — transformed into worlds of flowing cloth.
-  </div>
+      <div class="worlds">
+        <div class="world">
+          <div>
+            <div class="world-meta">World 01 · Grand Theatre</div>
+            <h3><span>Origins Hall</span> — the living fresco.</h3>
+            <p>
+              A 360° cosmic mural where miniatures, folk art and constellations of textiles wrap the entire theatre—floor to ceiling—into one continuous, slowly shifting painting.
+            </p>
+          </div>
+          <!-- upload: world-origins.jpg -->
+          <div class="world-thumb" style="background-image:url('world-origins.jpg');"></div>
+        </div>
 
-  <div class="world">
-    <h3>Folk & Tribal Worlds</h3>
-    Warli, Madhubani, Gond & Pattachitra become animated narrative environments.
-  </div>
+        <div class="world">
+          <div>
+            <div class="world-meta">World 02 · Art House</div>
+            <h3><span>Threads of India</span> — inside the cloth.</h3>
+            <p>
+              A VR textile universe. Banarasi zari, Ajrakh indigo, Ikat gradients and Phulkari embroidery flow around you as rivers of fabric you can follow, pause and inspect stitch by stitch.
+            </p>
+          </div>
+          <!-- upload: world-textiles.jpg -->
+          <div class="world-thumb" style="background-image:url('world-textiles.jpg');"></div>
+        </div>
 
-  <div class="world">
-    <h3>Sacred Architecture</h3>
-    Stepwells, temples, mosques & arches become luminous VR portals.
-  </div>
+        <div class="world">
+          <div>
+            <div class="world-meta">World 03 · The Cube</div>
+            <h3><span>Painted Stories</span> — folk worlds in motion.</h3>
+            <p>
+              In a dark, glowing chamber, Warli, Gond and Madhubani lines animate gently: animals breathe, figures move, patterns listen and respond to your presence.
+            </p>
+          </div>
+          <!-- upload: world-folk.jpg -->
+          <div class="world-thumb" style="background-image:url('world-folk.jpg');"></div>
+        </div>
 
-  <div class="world">
-    <h3>Festival Color</h3>
-    Rangoli, Holi pigments & ritual patterning power our color & light engine.
-  </div>
+        <div class="world">
+          <div>
+            <div class="world-meta">World 04 · Lobby Portal</div>
+            <h3><span>Sacred Spaces</span> — walking through light.</h3>
+            <p>
+              Temple towers, arches and stepwell geometry are recomposed as a luminous gateway; you literally walk through carved light into the rest of Drisya.
+            </p>
+          </div>
+          <!-- upload: world-portal.jpg -->
+          <div class="world-thumb" style="background-image:url('world-portal.jpg');"></div>
+        </div>
 
-</section>
+        <div class="world">
+          <div>
+            <div class="world-meta">World 05 · Promenade</div>
+            <h3><span>Corridor of Journeys</span> — the long story.</h3>
+            <p>
+              A gently curving corridor where walls act as a continuous scroll, linking regions, crafts and eras as you move—your walk becomes the line that connects them.
+            </p>
+          </div>
+          <!-- upload: world-corridor.jpg -->
+          <div class="world-thumb" style="background-image:url('world-corridor.jpg');"></div>
+        </div>
+      </div>
+    </section>
 
-<section>
-  <h2>The Five Worlds of DRISYA at NMACC</h2>
+    <!-- HOW IT WORKS -->
+    <section id="how">
+      <div class="section-kicker">How it works</div>
+      <h2 class="section-title">Your visit in three simple steps.</h2>
+      <div class="steps">
+        <div class="card">
+          <div class="step-number">1</div>
+          <h3>Arrive &amp; tune in</h3>
+          <p>
+            Check in at NMACC and choose your time slot and language. A short intro film orients you to the art forms behind what you’re about to see.
+          </p>
+        </div>
+        <div class="card">
+          <div class="step-number">2</div>
+          <h3>Choose your worlds</h3>
+          <p>
+            Move from Origins Hall into textiles, stories, sacred spaces or the corridor. Stay in one world or wander; each room is designed to reward slowing down.
+          </p>
+        </div>
+        <div class="card">
+          <div class="step-number">3</div>
+          <h3>Take it home</h3>
+          <p>
+            Scan QR codes to save artworks, craftspeople and regions to your phone via Google Arts &amp; Culture—so Drisya continues long after you leave the building.
+          </p>
+        </div>
+      </div>
+    </section>
 
-  <div class="world">
-    <h3>01 — Origins Hall</h3>
-    A 360° living fresco made from Indian art traditions.
-  </div>
+    <!-- VISIT -->
+    <section id="visit">
+      <div class="section-kicker">Visit</div>
+      <h2 class="section-title">Launching soon at NMACC, Mumbai.</h2>
+      <div class="visit">
+        <p>
+          Drisya will premiere as a special installation at the Nita Mukesh Ambani Cultural Centre.
+          Sign up to hear when tickets drop, see behind-the-scenes process and get invites to early test screenings.
+        </p>
+        <a href="mailto:hello@drisya.art?subject=Drisya%20Updates" class="btn-primary">Join the early list</a>
+      </div>
+    </section>
+  </main>
 
-  <div class="world">
-    <h3>02 — Threads of India</h3>
-    A VR textile universe filled with Banarasi, Ikat, Ajrakh & more.
-  </div>
-
-  <div class="world">
-    <h3>03 — Painted Stories</h3>
-    Warli, Gond & Madhubani animations that move with you.
-  </div>
-
-  <div class="world">
-    <h3>04 — Sacred Spaces</h3>
-    Temple geometry becomes a glowing entry portal.
-  </div>
-
-  <div class="world">
-    <h3>05 — Corridor of Journeys</h3>
-    A long scroll-like passage linking India’s many visual worlds.
-  </div>
-</section>
-
-<section>
-  <h2>How Your Visit Works</h2>
-
-  <div class="world">
-    <h3>Step 1 — Arrive</h3>
-    Check in, choose your time slot, and tune into a short intro film.
-  </div>
-
-  <div class="world">
-    <h3>Step 2 — Explore Worlds</h3>
-    Move freely between the five immersive portals inside NMACC.
-  </div>
-
-  <div class="world">
-    <h3>Step 3 — Take It Home</h3>
-    Scan QR codes to save artworks to your phone via Google Arts & Culture.
-  </div>
-</section>
-
-<section>
-  <h2>Visit Drisya</h2>
-  <p>
-    Launching at the Nita Mukesh Ambani Cultural Centre, Mumbai.  
-    Sign up to get early access, behind-the-scenes content, and launch updates.
-  </p>
-</section>
-
-<footer>
-  © DRISYA · Concept by Mehra Studio · Presented by Google Arts & Culture
-</footer>
-
+  <footer>
+    <div>© DRISYA · Immersive Cultural Worlds · Concept by Mehra Studio</div>
+    <div class="footer-links">
+      <a href="#top">Back to top ↑</a>
+      <a href="#">Instagram</a>
+      <a href="#">Press kit</a>
+    </div>
+  </footer>
 </body>
 </html>
